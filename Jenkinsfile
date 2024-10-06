@@ -9,7 +9,7 @@ pipeline {
                 }
             }
             steps {
-                sh 'echo "With Docker"'
+                sh 'ls'
             }
         }
     }
