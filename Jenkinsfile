@@ -34,7 +34,7 @@ pipeline {
     agent any
 
     environment {
-        NEXUS_URL = 'https://nexus.techworldplus.xyz'
+        NEXUS_URL = 'nexus.techworldplus.xyz'
         NEXUS_REPO = 'nexus-postboard-client'
         NEXUS_CREDENTIALS_ID = 'nexusCreds2'
 
@@ -135,7 +135,7 @@ pipeline {
                         nexusVersion: 'nexus3',
                         protocol: 'https',
                         nexusUrl: "${NEXUS_URL}",
-                        groupId: 'com.yourcompany.reactapp',
+                        // groupId: 'com.yourcompany.reactapp',
                         version: "${SONAR_PROJECT_VERSION}",
                         repository: "${NEXUS_REPO}",
                         credentialsId: "${NEXUS_CREDENTIALS_ID}",
