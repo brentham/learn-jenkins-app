@@ -92,7 +92,6 @@ pipeline {
                         sh '''
                             sonar-scanner -Dsonar.projectKey=${SONAR_PROJECT_KEY} \
                                 -Dsonar.projectName=${SONAR_PROJECT_NAME} \
-                                -Dsonar.projectVersion=${SONAR_PROJECT_VERSION} \
                                 -Dsonar.sources=./src \
                                 -Dsonar.working.directory=.scannerwork
                             ls -la
@@ -128,7 +127,7 @@ pipeline {
             steps {
                 script {
                     // Archive the SonarQube scan artifacts
-                    archiveArtifacts artifacts: '**/.scannerwork/**', allowEmptyArchive: true
+                    // archiveArtifacts artifacts: '**/.scannerwork/**', allowEmptyArchive: true
 
                     // Publish the scan reports to Nexus
                     nexusArtifactUploader(
@@ -136,7 +135,7 @@ pipeline {
                         protocol: 'https',
                         nexusUrl: "${NEXUS_URL}",
                         // groupId: 'com.yourcompany.reactapp',
-                        version: "${SONAR_PROJECT_VERSION}",
+                        // version: "${SONAR_PROJECT_VERSION}",
                         repository: "${NEXUS_REPO}",
                         credentialsId: "${NEXUS_CREDENTIALS_ID}",
                         artifacts: [
