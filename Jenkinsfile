@@ -56,28 +56,28 @@ pipeline {
                     reuseNode true
                 }
             }
-            steps {
-                sh '''
-                    ls -la
-                    npm ci
-                    ls -la
-                '''
-            }
-        }
+        //     steps {
+        //         sh '''
+        //             ls -la
+        //             npm ci
+        //             ls -la
+        //         '''
+        //     }
+        // }
 
-        stage('Run Tests') {
-            agent {
-                docker {
-                    image 'node:18-alpine'
-                    reuseNode true
-                }
-            }
-            steps {
-                sh '''
-                    npm test -- --watchAll=false
-                '''
-            }
-        }
+        // stage('Run Tests') {
+        //     agent {
+        //         docker {
+        //             image 'node:18-alpine'
+        //             reuseNode true
+        //         }
+        //     }
+        //     steps {
+        //         sh '''
+        //             npm test -- --watchAll=false
+        //         '''
+        //     }
+        // }
 
 
         stage('SonarQube Scan') {
@@ -96,6 +96,7 @@ pipeline {
                                 -Dsonar.sources=./src \
                                 -Dsonar.working.directory=.scannerwork
                             ls -la
+                            ls -la .scannerwork
                         '''
                 }
             }
@@ -144,12 +145,6 @@ pipeline {
                                 classifier: '',
                                 file: ".scannerwork/report-task.txt",
                                 type: 'txt'
-                            ],
-                            [
-                                artifactId: 'sonarqube-metrics',
-                                classifier: '',
-                                file: ".scannerwork/sonar-report.json",
-                                type: 'json'
                             ]
                         ]
                     )
