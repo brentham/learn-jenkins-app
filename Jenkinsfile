@@ -390,13 +390,13 @@ pipeline {
             }
         }
 
-        // stage('Dockerize React App') {
-        //     steps {
-        //         script {
-        //             docker.build("${DOCKER_IMAGE}", "${REACT_APP_DIR}").push()
-        //         }
-        //     }
-        // }
+    //     stage('Dockerize React App') {
+    //         steps {
+    //             script {
+    //                 docker.build("${DOCKER_IMAGE}", "${REACT_APP_DIR}").push()
+    //             }
+    //         }
+    //     }
 
     //     stage('Publish SonarQube Artifacts to Nexus') {
     //         steps {
@@ -431,12 +431,11 @@ pipeline {
     //             }
     //         }
     //     }
-    // }
+    }
 
     post {
         always {
             cleanWs() // Clean workspace after the build
         }
-    }
     }
 }
