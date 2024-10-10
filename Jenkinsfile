@@ -36,7 +36,7 @@ pipeline {
     environment {
         NEXUS_URL = 'https://nexus.techworldplus.xyz'
         NEXUS_REPO = 'nexus-postboard-client'
-        NEXUS_CREDENTIALS_ID = 'nexusCreds'
+        NEXUS_CREDENTIALS_ID = 'nexusCreds2'
 
 
         REACT_APP_DIR = 'src' // Your React app directory
