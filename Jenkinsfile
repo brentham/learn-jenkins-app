@@ -101,19 +101,19 @@ pipeline {
             }
         }
 
-        stage('Build React App') {
-            agent {
-                docker {
-                    image 'node:18-alpine'
-                    reuseNode true
-                }
-            }
-            steps {
-                sh '''
-                    npm run build
-                '''
-            }
-        }
+        // stage('Build React App') {
+        //     agent {
+        //         docker {
+        //             image 'node:18-alpine'
+        //             reuseNode true
+        //         }
+        //     }
+        //     steps {
+        //         sh '''
+        //             npm run build
+        //         '''
+        //     }
+        // }
 
     //     stage('Dockerize React App') {
     //         steps {
