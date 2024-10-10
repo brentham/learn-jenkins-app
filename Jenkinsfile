@@ -80,7 +80,6 @@ pipeline {
                                 sh """
                                 sonar-scanner -Dsonar.projectKey=${SONAR_PROJECT_KEY} \
                                     -Dsonar.projectName=${SONAR_PROJECT_NAME} \
-                                    -Dsonar.projectVersion=${SONAR_PROJECT_VERSION} \
                                     -Dsonar.sources=./src
                                 """
                             }
