@@ -46,15 +46,18 @@ pipeline {
     stages {
         stage('Install Dependencies') {
             steps {
-                script {
-                    // Use Node.js Docker container to install dependencies
-                    docker.image('node:16-alpine').inside {
-                        dir(REACT_APP_DIR) {
+                agent{
+                docker {
+                    image 'node:18-alpine'
+                    reuseNode true
+                    }
+                }
+                step {
+
                               sh """
                                 ls -la
 
                                 """
-                        }
                     }
                 }
             }
