@@ -362,6 +362,11 @@ pipeline {
                 withSonarQubeEnv(SONARQUBE_SERVER) {
                     // dir(REACT_APP_DIR) {
                         sh '''
+                            sonar-scanner -Dsonar.projectKey=${SONAR_PROJECT_KEY} \
+                                -Dsonar.projectName=${SONAR_PROJECT_NAME} \
+                                -Dsonar.projectVersion=${SONAR_PROJECT_VERSION} \
+                                -Dsonar.sources=./src \
+                                -Dsonar.working.directory=.scannerwork
                             ls -la
                         '''
                     // }
