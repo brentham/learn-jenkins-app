@@ -35,7 +35,7 @@ pipeline {
     agent any
 
     environment {
-        REACT_APP_DIR = 'your-react-app' // Your React app directory
+        REACT_APP_DIR = 'src' // Your React app directory
         SONARQUBE_SERVER = 'https://sonarqube.techworldplus.xyz/' // Jenkins SonarQube server name
         SONAR_PROJECT_KEY = 'brentham_learn-jenkins-app_29b39040-c647-428e-bc72-16ef946b7c83'
         SONAR_PROJECT_NAME = 'learn-jenkins-app'
@@ -79,9 +79,7 @@ pipeline {
                         docker.image('sonarsource/sonar-scanner-cli').inside {
                             dir(REACT_APP_DIR) {
                                 sh """
-                                sonar-scanner -Dsonar.projectKey=${SONAR_PROJECT_KEY} \
-                                    -Dsonar.projectName=${SONAR_PROJECT_NAME} \
-                                    -Dsonar.sources=./src
+                                ls -la
                                 """
                             }
                         }
