@@ -34,9 +34,9 @@ pipeline {
     agent any
 
     environment {
-        NEXUS_URL = 'http://your-nexus-server.com'
-        NEXUS_REPO = 'sonarqube-reports'
-        NEXUS_CREDENTIALS_ID = 'nexus-credentials'
+        NEXUS_URL = 'https://nexus.techworldplus.xyz'
+        NEXUS_REPO = 'nexus-postboard-client'
+        NEXUS_CREDENTIALS_ID = 'nexusCreds'
 
 
         REACT_APP_DIR = 'src' // Your React app directory
@@ -60,7 +60,6 @@ pipeline {
                 sh '''
                     ls -la
                     npm ci
-                    npm run build
                     ls -la
                 '''
             }
@@ -124,39 +123,39 @@ pipeline {
     //         }
     //     }
 
-    //     stage('Publish SonarQube Artifacts to Nexus') {
-    //         steps {
-    //             script {
-    //                 // Archive the SonarQube scan artifacts
-    //                 archiveArtifacts artifacts: '**/.scannerwork/**', allowEmptyArchive: true
+        stage('Publish SonarQube Artifacts to Nexus') {
+            steps {
+                script {
+                    // Archive the SonarQube scan artifacts
+                    archiveArtifacts artifacts: '**/.scannerwork/**', allowEmptyArchive: true
 
-    //                 // Publish the scan reports to Nexus
-    //                 nexusArtifactUploader(
-    //                     nexusVersion: 'nexus3',
-    //                     protocol: 'http',
-    //                     nexusUrl: "${NEXUS_URL}",
-    //                     groupId: 'com.yourcompany.reactapp',
-    //                     version: "${SONAR_PROJECT_VERSION}",
-    //                     repository: "${NEXUS_REPO}",
-    //                     credentialsId: "${NEXUS_CREDENTIALS_ID}",
-    //                     artifacts: [
-    //                         [
-    //                             artifactId: 'sonarqube-report',
-    //                             classifier: '',
-    //                             file: "${REACT_APP_DIR}/.scannerwork/report-task.txt",
-    //                             type: 'txt'
-    //                         ],
-    //                         [
-    //                             artifactId: 'sonarqube-metrics',
-    //                             classifier: '',
-    //                             file: "${REACT_APP_DIR}/.scannerwork/sonar-report.json",
-    //                             type: 'json'
-    //                         ]
-    //                     ]
-    //                 )
-    //             }
-    //         }
-    //     }
+                    // Publish the scan reports to Nexus
+                    nexusArtifactUploader(
+                        nexusVersion: 'nexus3',
+                        protocol: 'https',
+                        nexusUrl: "${NEXUS_URL}",
+                        groupId: 'com.yourcompany.reactapp',
+                        version: "${SONAR_PROJECT_VERSION}",
+                        repository: "${NEXUS_REPO}",
+                        credentialsId: "${NEXUS_CREDENTIALS_ID}",
+                        artifacts: [
+                            [
+                                artifactId: 'sonarqube-report',
+                                classifier: '',
+                                file: ".scannerwork/report-task.txt",
+                                type: 'txt'
+                            ],
+                            [
+                                artifactId: 'sonarqube-metrics',
+                                classifier: '',
+                                file: ".scannerwork/sonar-report.json",
+                                type: 'json'
+                            ]
+                        ]
+                    )
+                }
+            }
+        }
     }
 
     post {
