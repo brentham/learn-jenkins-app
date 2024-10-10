@@ -79,7 +79,9 @@ pipeline {
                         docker.image('sonarsource/sonar-scanner-cli').inside {
                             dir(REACT_APP_DIR) {
                                 sh """
-                                ls -la
+                                sonar-scanner -Dsonar.projectKey=${SONAR_PROJECT_KEY} \
+                                    -Dsonar.projectName=${SONAR_PROJECT_NAME} \
+                                    -Dsonar.sources=./src
                                 """
                             }
                         }
