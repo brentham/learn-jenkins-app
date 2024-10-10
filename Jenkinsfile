@@ -75,7 +75,7 @@ pipeline {
                 script {
                     // Use SonarQube container for the scan
                     // withSonarQubeEnv(SONARQUBE_SERVER) {
-                    withSonarQubeEnv(jenkins-sonar) {
+                    withSonarQubeEnv('jenkins-sonar') {
                         docker.image('sonarsource/sonar-scanner-cli').inside {
                             dir(REACT_APP_DIR) {
                                 sh """
