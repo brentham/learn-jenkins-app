@@ -49,13 +49,13 @@ pipeline {
     }
 
     stages {
-        stage('Install Dependencies') {
-            agent {
-                docker {
-                    image 'node:18-alpine'
-                    reuseNode true
-                }
-            }
+        // stage('Install Dependencies') {
+        //     agent {
+        //         docker {
+        //             image 'node:18-alpine'
+        //             reuseNode true
+        //         }
+        //     }
         //     steps {
         //         sh '''
         //             ls -la
