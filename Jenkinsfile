@@ -374,11 +374,69 @@ pipeline {
             }
         }
 
-        stage('Test') {
-            steps{
-                echo 'Test Stage'
-                
+        stage('Build React App') {
+            agent {
+                docker {
+                    image 'node:18-alpine'
+                    reuseNode true
+                }
+            }
+            steps {
+                // dir(REACT_APP_DIR) {
+                    sh '''
+                        npm run build
+                    '''
+                // }
             }
         }
+
+        // stage('Dockerize React App') {
+        //     steps {
+        //         script {
+        //             docker.build("${DOCKER_IMAGE}", "${REACT_APP_DIR}").push()
+        //         }
+        //     }
+        // }
+
+    //     stage('Publish SonarQube Artifacts to Nexus') {
+    //         steps {
+    //             script {
+    //                 // Archive the SonarQube scan artifacts
+    //                 archiveArtifacts artifacts: '**/.scannerwork/**', allowEmptyArchive: true
+
+    //                 // Publish the scan reports to Nexus
+    //                 nexusArtifactUploader(
+    //                     nexusVersion: 'nexus3',
+    //                     protocol: 'http',
+    //                     nexusUrl: "${NEXUS_URL}",
+    //                     groupId: 'com.yourcompany.reactapp',
+    //                     version: "${SONAR_PROJECT_VERSION}",
+    //                     repository: "${NEXUS_REPO}",
+    //                     credentialsId: "${NEXUS_CREDENTIALS_ID}",
+    //                     artifacts: [
+    //                         [
+    //                             artifactId: 'sonarqube-report',
+    //                             classifier: '',
+    //                             file: "${REACT_APP_DIR}/.scannerwork/report-task.txt",
+    //                             type: 'txt'
+    //                         ],
+    //                         [
+    //                             artifactId: 'sonarqube-metrics',
+    //                             classifier: '',
+    //                             file: "${REACT_APP_DIR}/.scannerwork/sonar-report.json",
+    //                             type: 'json'
+    //                         ]
+    //                     ]
+    //                 )
+    //             }
+    //         }
+    //     }
+    // }
+
+    post {
+        always {
+            cleanWs() // Clean workspace after the build
+        }
+    }
     }
 }
